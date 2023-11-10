@@ -1,6 +1,7 @@
 ---
 title: "Data Visualisation"
-author: ""
+author: "Benjamin HARRIS"
+date: 2023-11-10
 format:
   html:
     embed-resources: true
@@ -25,6 +26,7 @@ library(dplyr)
 library(readr)
 library(sf)
 library(rnaturalearth)
+library(ggthemes)
 ```
 
 ## Task 2: Transform for data in 2007
@@ -334,7 +336,7 @@ The code chunk below contains code for a world map that shows countries by incom
 3.  Render the document and fix any errors.
 
 ```{r}
-#| eval: false
+#| eval: true
 
 world <- ne_countries(scale = "small", returnclass = "sf")
 
@@ -342,10 +344,11 @@ world |>
   mutate(income_grp = factor(income_grp, ordered = T)) |> 
   ggplot(aes(fill = income_grp)) + 
   geom_sf() +
+  #added line to use colorblind friendly palet. Also loaded ggthemes() in first code block
+  scale_fill_colorblind() +
   theme_void() +
   theme(legend.position = "top") +
   labs(fill = "Income Group:") +
-  scale_color_
   guides(fill = guide_legend(nrow = 2, byrow = TRUE))
 
 
